@@ -8,22 +8,22 @@ git init
 git config user.name "<username>"
 git config user.email "<email-id>"
 git remote add origin "https://<ORIGIN_BASE>/"$ORIGIN".git"
-git add info.* 
-git add *.zip
-git add transcript.*
+git add info.*
+git add *.zip 
+git add *.txt
 git commit -m 'Initial Commit'
-git push -u origin master        
+git push -u origin master
 
 for D in */ ; do
     D=`cut -d '/' -f1 <<< "$D"`
     echo ">>>>>>>>>$D"
-    cd "$D"
-    for F in *; do
-        echo "$F"
-        git add "$F"
-        git commit -m 'Initial Commit' && git push -u origin master        
-    done
-    cd ..
+    pushd "$D"
+      for F in *; do
+          echo "$F"
+          git add "$F"
+          git commit -m 'Initial Commit' && git push -u origin master        
+      done
+    popd
 done
 
 cd ..
